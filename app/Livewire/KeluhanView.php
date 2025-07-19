@@ -13,6 +13,7 @@ class KeluhanView extends Component
 
     public $keluhanId;
     public $id_kategori;
+    public $no_keluhan;
     public $deskripsi;
     public $status;
     public $foto;
@@ -23,15 +24,17 @@ class KeluhanView extends Component
 
         if($id){
             $this->keluhanId = $id;
-            $kategori = Keluhan::find($id);
-            $this->id_kategori = $kategori->id_kategori;
-            $this->deskripsi = $kategori->deskripsi;
-            $this->status = $kategori->status;
+            $keluhan = Keluhan::find($id);
+            $this->no_keluhan = $keluhan->no_keluhan;
+            $this->id_kategori = $keluhan->id_kategori;
+            $this->deskripsi = $keluhan->deskripsi;
+            $this->status = $keluhan->status;
         }
     }
 
     public function simpan(){
         $rules = [
+            'no_keluhan' => 'required|string|unique:keluhan',
             'id_kategori' => 'required',
             'deskripsi' => 'required|string',
             'status' => 'nullable|string|max:255',
@@ -56,6 +59,7 @@ class KeluhanView extends Component
     public function clear(){
         $this->reset('keluhanId');
         $this->reset('foto');
+        $this->reset('no_keluhan');
         $this->reset('id_kategori');
         $this->reset('deskripsi');
         $this->reset('status');

@@ -4,7 +4,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Keluhan</h4>
+                        <h4 class="card-title">Penugasan</h4>
                         <div class="card-description">
                             <div class="float-right btn-plus">
                                 <button class="btn btn-success" wire:click='setModal()' data-toggle="modal" data-target="#modal">
@@ -20,22 +20,20 @@
                                 <thead class="ctable">
                                 <tr class="ctable">
                                     <th>No</th>
+                                    <th>Petugas</th>
                                     <th>Nomor Keluhan</th>
-                                    <th>Keluhan oleh</th>
-                                    <th>Kategori</th>
-                                    <th>Deskripsi</th>
+                                    <th>Tanggal Penugasan</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($keluhan as $k)
+                                    @foreach ($penugasan as $k)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $k->no_keluhan }}</td>
-                                            <td>{{ $k->user->name }}</td>
-                                            <td>{{ $k->kategori->nama }}</td>
-                                            <td>{{ $k->deskripsi }}</td>
+                                            <td>{{ $k->petugas->nama }}</td>
+                                            <td>{{ $k->keluhan->no_keluhan }}</td>
+                                            <td>{{ $k->tanggal }}</td>
                                             <td>{{ $k->status }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-warning" wire:click='setModal({{ $k->id }})' data-toggle="modal" data-target="#modal">
@@ -79,48 +77,30 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $keluhanId ? 'Edit' : 'Tambah' }} Keluhan</h5>
+                    <h5 class="modal-title">{{ $penugasanId ? 'Edit' : 'Tambah' }} Penugasan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Nomor Keluhan</label>
-                        <input type="text" class="form-control form-control-lg @error('no_keluhan') is-invalid @enderror" wire:model='no_keluhan' placeholder="Masukkan Nama">
-                        @foreach($errors->get('no_keluhan') as $err)
-                            <div class="invalid-feedback">
-                                {{ $err }}
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="form-group">
-                        <label for="">Deskripsi</label>
-                        <textarea rows="10" class="form-control form-control-lg @error('deskripsi') is-invalid @enderror" wire:model='deskripsi' placeholder="Masukkan Deskripsi"></textarea>
-                        @foreach($errors->get('deskripsi') as $err)
-                            <div class="invalid-feedback">
-                                {{ $err }}
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="form-group">
-                        <label for="">Foto Selfie</label>
-                        <input type="file" class="form-control form-control-lg @error('foto') is-invalid @enderror" wire:model='foto' placeholder="Masukkan Nama">
-                        @foreach($errors->get('foto') as $err)
-                            <div class="invalid-feedback">
-                                {{ $err }}
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="form-group">
-                        <label for="">Kategori</label>
-                        <select class="form-control form-control-lg @error('id_kategori') is-invalid @enderror" wire:model='id_kategori'>
-                            <option value="" selected>-- Pilih Kategori --</option>
-                            @foreach ($kategori as $k)
+                        <label for="">Petugas</label>
+                        <select class="form-control form-control-lg @error('id_petugas') is-invalid @enderror" wire:model='id_petugas'>
+                            <option value="" selected>-- Pilih Petugas --</option>
+                            @foreach ($petugas as $k)
                                 <option value="{{ $k->id }}">{{ $k->nama }}</option>
                             @endforeach
                         </select>
-                        @foreach($errors->get('id_kategori') as $err)
+                        @foreach($errors->get('id_petugas') as $err)
+                            <div class="invalid-feedback">
+                                {{ $err }}
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nomor Keluhan</label>
+                        <input type="text" class="form-control form-control-lg @error('no_keluhan') is-invalid @enderror" wire:model='no_keluhan' placeholder="Masukkan Nama">
+                        @foreach($errors->get('no_keluhan') as $err)
                             <div class="invalid-feedback">
                                 {{ $err }}
                             </div>
@@ -136,17 +116,9 @@
                             <option value="closed">CLOSED</option>
                         </select>
                     </div>
-                    @if($success)
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            Berhasil!
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click='clear()'>Tutup</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click='clear()'>Batal</button>
                     <button type="button" class="btn btn-primary" wire:click='simpan()'>Simpan</button>
                 </div>
             </div>

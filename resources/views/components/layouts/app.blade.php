@@ -81,7 +81,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('keluhan') }}">
+                        <a class="nav-link" href="{{ route('penugasan') }}">
                             <i class="mdi mdi-playlist-edit"></i>
                             <span class="menu-title">Penugasan</span>
                         </a>

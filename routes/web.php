@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth;
 use App\Livewire\Dashboard;
 use App\Livewire\KategoriKeluhanView;
 use App\Livewire\KeluhanView;
+use App\Livewire\PenugasanView;
 use App\Livewire\PetugasView;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/kategorikeluhan', KategoriKeluhanView::class)->name('kategorikeluhan');
     Route::get('/keluhan', KeluhanView::class)->name('keluhan');
     Route::get('/petugas', PetugasView::class)->name('petugas');
+    Route::get('/penugasan', PenugasanView::class)->name('penugasan');
 });
