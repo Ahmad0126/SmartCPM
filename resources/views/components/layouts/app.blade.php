@@ -81,6 +81,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('keluhan') }}">
+                            <i class="mdi mdi-playlist-edit"></i>
+                            <span class="menu-title">Penugasan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('petugas') }}">
+                            <i class="mdi mdi-playlist-edit"></i>
+                            <span class="menu-title">Petugas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="">
                             <i class="mdi mdi-account-details"></i>
                             <span class="menu-title">Log pegawai</span>
