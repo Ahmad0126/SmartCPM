@@ -31,10 +31,25 @@ class PenugasanView extends Component
         $data = $this->validate([
             'id_petugas' => 'required',
             'no_keluhan' => 'required|exists:keluhan,no_keluhan',
-            'status' => 'required|string|max:255',
+            'status' => 'nullable|string|max:255',
         ]);
         $data['id_keluhan'] = Keluhan::where('no_keluhan', $this->no_keluhan)->first()->id;
         $data['tanggal'] = now()->format('Y-m-d H:i:s');
+
+        switch ($this->status) {
+            case 'in_progress':
+                $statuskeluhan = 'in_progress';
+                break;
+            
+            case 'completed':
+                $statuskeluhan = 'resolved';
+                break;
+            
+            default:
+                $statuskeluhan = 'open';
+                break;
+        }
+        Keluhan::updateOrCreate(['id' => $data['id_keluhan']], ['status' => $statuskeluhan]);
         Penugasan::updateOrCreate(['id' => $this->penugasanId], $data);
 
         $this->clear();

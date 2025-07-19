@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use App\Models\KategoriKeluhan;
 use App\Models\Keluhan;
+use App\Models\Penugasan;
+use App\Models\Petugas;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
@@ -52,6 +54,15 @@ class KeluhanView extends Component
         }
 
         Keluhan::updateOrCreate(['id' => $this->keluhanId], $data);
+        //auto assign (random)
+        $id_petugas = $this->cariPetugas();
+        $id_keluhan = Keluhan::where('no_keluhan', $this->no_keluhan)->first()->id;
+        Penugasan::create([
+            'id_keluhan' => $id_keluhan,
+            'id_petugas' => $id_petugas,
+            'tanggal' => now()->format('Y-m-d H:i:s'),
+        ]);
+        
         $this->clear();
         $this->success = true;
     }
@@ -74,5 +85,12 @@ class KeluhanView extends Component
         $keluhan = Keluhan::all();
         $kategori = KategoriKeluhan::all();
         return view('livewire.keluhan', compact('keluhan', 'kategori'));
+    }
+
+    protected function cariPetugas(){
+        $petugas = Petugas::where('id_kategori', $this->id_kategori)->get();
+        $id = $petugas->random()->id;
+
+        return $id;
     }
 }

@@ -110,15 +110,22 @@
                         <label for="">Status</label>
                         <select class="form-control form-control-lg @error('status') is-invalid @enderror" wire:model='status'>
                             <option value="" selected>-- Pilih status --</option>
-                            <option value="open">OPEN</option>
+                            <option value="assigned">ASSIGNED</option>
                             <option value="in_progress">IN PROGRESS</option>
-                            <option value="resolved">RESOLVED</option>
-                            <option value="closed">CLOSED</option>
+                            <option value="completed">COMPLETED</option>
                         </select>
                     </div>
+                    @if($success)
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            Berhasil!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click='clear()'>Batal</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click='clear()'>Tutup</button>
                     <button type="button" class="btn btn-primary" wire:click='simpan()'>Simpan</button>
                 </div>
             </div>

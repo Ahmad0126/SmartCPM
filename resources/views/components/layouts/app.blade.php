@@ -95,7 +95,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="">
                             <i class="mdi mdi-account-details"></i>
-                            <span class="menu-title">Log pegawai</span>
+                            <span class="menu-title">Laporan</span>
                         </a>
                     </li>
                 </ul>
