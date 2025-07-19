@@ -9,6 +9,7 @@ class KategoriKeluhanView extends Component
 {
     public $kategoriId;
     public $nama;
+    public $success = false;
 
     public function setModal($id = null){
         $this->clear();
@@ -27,11 +28,13 @@ class KategoriKeluhanView extends Component
         KategoriKeluhan::updateOrCreate(['id' => $this->kategoriId], $data);
 
         $this->clear();
+        $this->success = true;
     }
 
     public function clear(){
         $this->reset('kategoriId');
         $this->reset('nama');
+        $this->reset('success');
     }
 
     public function delete(){
