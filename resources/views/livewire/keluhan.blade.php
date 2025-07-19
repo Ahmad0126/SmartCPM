@@ -24,18 +24,20 @@
                                     <th>Keluhan oleh</th>
                                     <th>Kategori</th>
                                     <th>Deskripsi</th>
+                                    <th>Tanggal Diajukan</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($keluhan as $k)
+                                    @foreach ($keluhan as $i => $k)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $keluhan->firstItem() + $i }}</td>
                                             <td>{{ $k->no_keluhan }}</td>
-                                            <td>{{ $k->user->name }}</td>
+                                            <td><a href="{{ asset('storage/'.$k->path_foto) }}" target="_blank">{{ $k->user->name }}</a></td>
                                             <td>{{ $k->kategori->nama }}</td>
                                             <td>{{ $k->deskripsi }}</td>
+                                            <td>{{ $k->tanggal }}</td>
                                             <td>{{ $k->status }}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-warning" wire:click='setModal({{ $k->id }})' data-toggle="modal" data-target="#modal">
@@ -49,6 +51,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="mt-3">
+                                {{ $keluhan->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,6 +112,15 @@
                         <label for="">Foto Selfie</label>
                         <input type="file" class="form-control form-control-lg @error('foto') is-invalid @enderror" wire:model='foto' placeholder="Masukkan Nama">
                         @foreach($errors->get('foto') as $err)
+                            <div class="invalid-feedback">
+                                {{ $err }}
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <label for="">Lampiran</label>
+                        <input type="file" multiple class="form-control form-control-lg @error('lampiran') is-invalid @enderror" wire:model='lampiran' placeholder="Masukkan Nama">
+                        @foreach($errors->get('lampiran') as $err)
                             <div class="invalid-feedback">
                                 {{ $err }}
                             </div>
